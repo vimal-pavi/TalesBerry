@@ -1,4 +1,4 @@
-# ADR-004: Two-tier resolution — cheap preview, full-resolution print after payment
+# ADR-004: Two-tier resolution - cheap preview, full-resolution print after payment
 
 **Status:** Accepted
 
@@ -8,7 +8,7 @@ Previews are free and are generated for every visitor who uploads a photo. Rough
 convert. Previews were being generated at print resolution (1250×1250), so the large majority of
 GPU spend was being burned on images nobody would ever buy.
 
-Generating at 1000×1000 roughly halves generation time — but it visibly degrades face-swap quality,
+Generating at 1000×1000 roughly halves generation time - but it visibly degrades face-swap quality,
 and resemblance *is* the product. Cheapening the output everyone judges the product by is not a
 cost saving.
 
@@ -34,12 +34,12 @@ confirmation.
 ## Reasons
 
 - The preview is viewed on a phone; the print is viewed on 220 GSM paper. They have genuinely
-  different quality requirements, and pretending otherwise is what caused the over-spend.
+  different quality requirements.
 - It aligns cost with revenue: the expensive render happens only for jobs that have been paid for.
 - The architecture already separated the synchronous free path from the asynchronous paid path, so
   the change was a configuration and routing decision rather than a redesign.
 
-## Consequences
+## Outcomes
 
 **Positive.** Approximately **40% reduction in GPU spend**, with no change to what a paying customer
 receives.
