@@ -1,9 +1,0 @@
-run_id,variant,gpu,cold,worker_start_s,model_load_s,input_fetch_s,generate_s,face_swap_s,restore_s,upload_s,total_s,resolution,gpu_hourly_rate
-ILLUSTRATIVE,baseline,RTX 4090,1,18.0,41.0,4.2,52.0,9.5,6.0,1.4,132.1,1250x1250,0.69
-ILLUSTRATIVE,baseline,RTX 4090,0,0,0,4.1,51.0,9.4,6.1,1.3,71.9,1250x1250,0.69
-ILLUSTRATIVE,baseline,RTX 4090,0,0,0,4.4,53.5,9.8,6.0,1.5,75.2,1250x1250,0.69
-ILLUSTRATIVE,lightning-6step,RTX 4090,1,17.5,40.0,1.2,11.0,9.3,5.9,1.3,86.2,1250x1250,0.69
-ILLUSTRATIVE,lightning-6step,RTX 4090,0,0,0,1.1,10.8,9.2,5.8,1.2,28.1,1250x1250,0.69
-ILLUSTRATIVE,lightning-6step,RTX 4090,0,0,0,1.3,11.4,9.6,6.0,1.3,29.6,1250x1250,0.69
-ILLUSTRATIVE,preview-tier,RTX 4090,0,0,0,1.1,6.2,7.4,4.8,1.1,20.6,1024x1024,0.69
-ILLUSTRATIVE,preview-tier,RTX 4090,0,0,0,1.2,6.5,7.6,4.9,1.0,21.2,1024x1024,0.69
