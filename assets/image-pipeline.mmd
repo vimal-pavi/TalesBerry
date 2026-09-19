@@ -1,0 +1,11 @@
+flowchart TD
+    A["Uploaded photo<br/>(phone camera, uncontrolled)"] --> B["Face detection + crop<br/>AutoCropFaces, scale_factor 4"]
+    B --> C["Identity embedding<br/>InsightFace / InstantID"]
+    C --> D["SDXL base + Lightning LoRA"]
+    D --> E["Depth ControlNet<br/>from the story template"]
+    C --> D
+    E --> F["Sampler<br/>6 steps, CFG 1.8, euler / sgm_uniform"]
+    F --> G["VAE decode"]
+    G --> H["Face swap refinement<br/>HyperSwap 1c via ReActor"]
+    H --> I["Face restoration<br/>CodeFormer"]
+    I --> J["Composite onto page<br/>original-resolution mask assets"]

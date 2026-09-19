@@ -1,0 +1,11 @@
+flowchart LR
+    A["Parent uploads photo<br/>React + Vite on Cloudflare"] --> B["App + orders<br/>Supabase"]
+    B --> C{"Preview<br/>or print?"}
+    C -->|"free, pre-payment"| D["Preview job<br/>reduced resolution"]
+    C -->|"paid, post-payment"| E["Print job<br/>full resolution"]
+    D --> F["Serverless GPU worker<br/>Docker: ComfyUI + custom nodes"]
+    E --> F
+    F --> G["InstantID + Depth ControlNet + SDXL Lightning<br/>→ HyperSwap → CodeFormer"]
+    G --> H["S3 + CloudFront<br/>Lambda@Edge renditions"]
+    H --> I["Preview page → checkout"]
+    H --> J["Print-ready PDF → vendor → shipped book"]
