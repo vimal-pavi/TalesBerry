@@ -4,19 +4,18 @@ How a photograph becomes a printed book, and what the system is actually optimis
 
 ## The shape of the problem
 
-TalesBerry is a two-sided latency problem in a single product.
+Two important parts: Generating Instant Preview and Generating whole book ready for print
 
 **The preview must feel instant and it is free.** A parent uploads one photo on a mobile phone,
 usually inside the Instagram in-app browser, and decides within a minute whether this is worth
 ₹1,799. Median time from seeing the preview to paying is about 25 minutes; more than half of buyers
 pay within 30 minutes and only ~5% take longer than a day. If they close the tab, they are gone.
-So preview latency is a conversion variable, not an engineering nicety.
+So preview latency is a conversion variable, not just a nice to have.
 
-**The print must be perfect and it is paid for.** 20+ pages, print resolution, a face the child's
+**Whole book generation is available only after payment.** 20+ pages, print resolution, a face the child's
 grandmother will recognise. The book ships in a few days.
 
-These two jobs have opposite cost profiles, and the architecture exists mostly to keep them apart.
-See [ADR-004](adr/004-two-tier-preview-and-print-resolution.md).
+For architecture decision points, See [ADR-004](adr/004-two-tier-preview-and-print-resolution.md).
 
 ## Components
 
