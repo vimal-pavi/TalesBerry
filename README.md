@@ -1,40 +1,40 @@
 # TalesBerry — AI Engineering Case Study
 
-**Production AI image generation behind a profitable D2C brand.** TalesBerry turns a photo of a
+**What is TalesBerry?** TalesBerry turns a photo of a
 child into a personalised, photo-realistic storybook in which that child is the illustrated hero.
 Parents upload one photo, get a free preview in minutes, and order a printed book.
 
-This repository is the **engineering documentation** for that system — architecture, the diffusion
+This repository is the **engineering documentation** for that system - architecture, the diffusion
 pipeline, GPU cost and performance work, incidents, and the decisions behind them. It is not the
 production codebase; no application source, credentials, customer data or infrastructure
-identifiers are published here.
+identifiers are published here, obviously! :)
 
 ---
 
 ## The system in one diagram
 
 ```mermaid
-flowchart TD
-    A["Parent uploads photo<br/>React / Vite site on Cloudflare"] --> B["App + order API<br/>Supabase (Postgres, auth, storage)"]
-    B --> C{"Preview or print?"}
-    C -->|Preview: free, pre-payment| D["GPU job — preview resolution"]
-    C -->|Print: post-payment| E["GPU job — print resolution"]
-    D --> F["RunPod serverless GPU worker<br/>Docker image: ComfyUI + custom nodes"]
+flowchart LR
+    A["Parent uploads photo<br/>React + Vite on Cloudflare"] --> B["App + orders<br/>Supabase"]
+    B --> C{"Preview<br/>or print?"}
+    C -->|"free, pre-payment"| D["Preview job<br/>reduced resolution"]
+    C -->|"paid, post-payment"| E["Print job<br/>full resolution"]
+    D --> F["Serverless GPU worker<br/>Docker: ComfyUI + custom nodes"]
     E --> F
-    F --> G["Diffusion pipeline<br/>InstantID + Depth ControlNet + SDXL Lightning<br/>→ HyperSwap → CodeFormer"]
-    G --> H["S3 — generated pages"]
-    H --> I["CloudFront + Lambda@Edge<br/>on-the-fly resize / format"]
-    I --> J["Preview page → checkout"]
-    J --> K["Print-ready PDF → print vendor → shipped book"]
+    F --> G["InstantID + Depth ControlNet + SDXL Lightning<br/>→ HyperSwap → CodeFormer"]
+    G --> H["S3 + CloudFront<br/>Lambda@Edge renditions"]
+    H --> I["Preview page → checkout"]
+    H --> J["Print-ready PDF → vendor → shipped book"]
 ```
 
-Detail: **[docs/architecture.md](docs/architecture.md)**
+Detail: **[docs/architecture.md](docs/architecture.md)** · the free path and the paid path are
+deliberately different systems — see [ADR-004](docs/adr/004-two-tier-preview-and-print-resolution.md).
 
 ---
 
 ## Why this was hard
 
-A face-swap demo is a weekend project. A face-swap **business** is not. The constraints that shaped
+A face-swap demo is a weekend project. A hyper personalisation **business** is not. The constraints that shaped
 every decision here:
 
 | Constraint | Consequence |
@@ -43,7 +43,6 @@ every decision here:
 | Previews are free, prints are paid | Most GPU spend is on sessions that never convert |
 | 20+ illustrated pages per book | Per-image latency multiplies across the whole book |
 | Gross margin is fixed by print cost | GPU cost per book is a direct line item, not an abstraction |
-| One-person engineering team | Every dependency is something I have to operate at 2am |
 
 ---
 
@@ -66,22 +65,6 @@ Supporting material:
 
 ---
 
-## Selected results
-
-<!-- FILL: replace each TODO with a number you can defend in an interview. See FILL-IN-CHECKLIST.md -->
-
-| Area | Before | After |
-|---|---|---|
-| Homepage LCP | 9.5s | **2.6s** |
-| Homepage Lighthouse performance | 72 | **94** |
-| Homepage payload | 26 MB | **< 2 MB** |
-| Photo-upload start rate (after removing price from the personalisation page) | 3.4% | **13.4%** |
-| Warm GPU generation, per page | TODO | TODO |
-| GPU cost per book | TODO | TODO |
-| Books shipped to date | — | TODO |
-
----
-
 ## Tech stack
 
 **Inference** ComfyUI · SDXL · SDXL-Lightning LoRA · InstantID · ControlNet (depth) · InsightFace ·
@@ -97,7 +80,7 @@ Workers · Supabase
 ## My role
 
 <!-- FILL: state this precisely and honestly — it is the first thing a hiring manager will test. -->
-Founder and product lead at TalesBerry. I designed and built the generation pipeline and the
+Founder and product head at TalesBerry. I designed and built the generation pipeline and the
 infrastructure it runs on, and I own the product, the funnel and the unit economics. TalesBerry is
 a small founding team; this repository documents the work I did personally.
 
